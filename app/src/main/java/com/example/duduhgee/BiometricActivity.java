@@ -29,6 +29,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.asm.ASM_checkKeyPairExistence;
 import com.example.rp.RP_DeleteAccountRequest;
 import com.example.rp.RP_DeleteRequest;
+import com.example.rp.RP_FIDORegisterRequest;
+import com.example.rp.RP_PayDetailActivity;
 import com.example.rp.RP_PaymentDetailRequest;
 import com.example.rp.RP_SavePKRequest;
 
@@ -57,7 +59,7 @@ public class BiometricActivity extends AppCompatActivity {
     private TextView tv_product1, tv_amount1, tv_unitprice1, tv_totalprice1;
     private TextView tv_product2, tv_amount2, tv_unitprice2, tv_totalprice2;
 
-
+    private TextView tv_id;
     private Button btn_info;
     private Button btn_home;
     private boolean start_authenticationIsClicked = false;
@@ -77,6 +79,13 @@ public class BiometricActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myinfo);
 
+        TextView tv_id = findViewById(R.id.tv_id);
+
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra("userID");
+
+        tv_id.setText(userId);
+
         btn_auth = findViewById(R.id.start_authentication);
         btn_del  = findViewById(R.id.delete_bio);
         btn_card = findViewById(R.id.btn_card);
@@ -84,50 +93,31 @@ public class BiometricActivity extends AppCompatActivity {
         btn_home = findViewById(R.id.btn_home);
         btn_info = findViewById(R.id.btn_info);
 
-        tv_product1 = findViewById(R.id.tv_product1);
-        tv_amount1 = findViewById(R.id.tv_amount1);
-        tv_unitprice1 = findViewById(R.id.tv_unitprice1);
-        tv_totalprice1 = findViewById(R.id.tv_totalprice1);
-        tv_product2 = findViewById(R.id.tv_product2);
-        tv_amount2 = findViewById(R.id.tv_amount2);
-        tv_unitprice2 = findViewById(R.id.tv_unitprice2);
-        tv_totalprice2 = findViewById(R.id.tv_totalprice2);
-
-        Response.Listener<String> responseListner = new Response.Listener<String>() {
+        TextView textPay = findViewById(R.id.text_pay);
+        textPay.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    //JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonarray = new JSONArray(response);
-                    for(int i=0; i < jsonarray.length(); i++) {
-                        JSONObject jsonobject = jsonarray.getJSONObject(i);
-                        String product       = jsonobject.getString("product");
-                        String amount    = jsonobject.getString("amount");
-                        String unitPrice  = jsonobject.getString("unitPrice");
-                        String totalPrice = jsonobject.getString("totalPrice");
-                        if(i==0){
-                            tv_product1.setText(product);
-                            tv_amount1.setText(amount);
-                            tv_unitprice1.setText(unitPrice);
-                            tv_totalprice1.setText(totalPrice);
-                        }else{
-                            tv_product2.setText(product);
-                            tv_amount2.setText(amount);
-                            tv_unitprice2.setText(unitPrice);
-                            tv_totalprice2.setText(totalPrice);
-                        }
-
-                    }
-
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                String userID = intent.getStringExtra("userID");
+                // PayDetail 액티비티로 이동하는 인텐트 생성
+                intent = new Intent(BiometricActivity.this, RP_PayDetailActivity.class);
+                intent.putExtra("userID", userID);
+                startActivity(intent);
             }
-        };
-        RP_PaymentDetailRequest paymentDetailRequest = null;
-        paymentDetailRequest = new RP_PaymentDetailRequest(responseListner);
-        RequestQueue queue = Volley.newRequestQueue(BiometricActivity.this);
-        queue.add(paymentDetailRequest);
+        });
+
+        TextView textMyInfo = findViewById(R.id.text_myinfo);
+        textMyInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                String userID = intent.getStringExtra("userID");
+                // MyInfo 액티비티로 이동하는 인텐트 생성
+                intent = new Intent(BiometricActivity.this, BiometricActivity.class);
+                intent.putExtra("userID", userID);
+                startActivity(intent);
+            }
+        });
 
         authenticationCallback = new BiometricPrompt.AuthenticationCallback() {
 
@@ -232,11 +222,11 @@ public class BiometricActivity extends AppCompatActivity {
                         }
                     }
                 };
-                FIDORegisterRequest fidoRegisterRequest = null;
+                RP_FIDORegisterRequest fidoRegisterRequest = null;
                 try {
                     Intent intent = getIntent();
                     String userID = intent.getStringExtra("userID");
-                    fidoRegisterRequest = new FIDORegisterRequest(userID, responseListener, BiometricActivity.this);
+                    fidoRegisterRequest = new RP_FIDORegisterRequest(userID, responseListener, BiometricActivity.this);
                 } catch (CertificateException | IOException | KeyStoreException |
                          NoSuchAlgorithmException | KeyManagementException e) {
                     throw new RuntimeException(e);
@@ -331,9 +321,12 @@ public class BiometricActivity extends AppCompatActivity {
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = getIntent();
+                String userID = intent.getStringExtra("userID");
                 // 메인 액티비티로 이동하는 인텐트 생성
-                Intent mainIntent = new Intent(BiometricActivity.this, MainActivity.class);
-                startActivity(mainIntent);
+                intent = new Intent(BiometricActivity.this, MainActivity.class);
+                intent.putExtra("userID", userID);
+                startActivity(intent);
                 finish(); // 현재 액티비티를 종료하여 이전 액티비티로 돌아갈 수 있도록 함
             }
         });

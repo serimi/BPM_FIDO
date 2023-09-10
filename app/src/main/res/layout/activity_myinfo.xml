@@ -49,13 +49,13 @@
                     android:src="@mipmap/ic_launcher_round" />
 
                 <TextView
+                    android:id="@+id/tv_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/calibri"
-                    android:text="Shashank Singhal"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
@@ -65,7 +65,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:fontFamily="@font/calibri"
-                    android:text="Mobile Application Developer"
+                    android:text="Welcome~!"
                     android:textSize="14sp" />
 
                 <LinearLayout
@@ -86,11 +86,12 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/text_myinfo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:fontFamily="@font/calibri"
-                            android:text="24 Collection"
+                            android:text="개인정보"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
@@ -110,11 +111,12 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/text_pay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:fontFamily="@font/calibri"
-                            android:text="12 History"
+                            android:text="구매내역"
                             android:textColor="#b3b3b3"
                             android:textSize="14sp" />
 
@@ -152,6 +154,7 @@
 
                         <Button
                             android:id="@+id/btn_card"
+                            android:background="#ffc6c6"
                             android:layout_width="131dp"
                             android:layout_height="wrap_content"
                             android:text="카드정보등록" />
@@ -170,6 +173,7 @@
 
                         <Button
                             android:id="@+id/start_authentication"
+                            android:background="#f9f9f9"
                             android:layout_width="130dp"
                             android:layout_height="wrap_content"
                             android:text="생체 인증" />
@@ -199,6 +203,7 @@
 
                         <Button
                             android:id="@+id/delete_bio"
+                            android:background="#f9f9f9"
                             android:layout_width="131dp"
                             android:layout_height="wrap_content"
                             android:text="생체정보 삭제" />
@@ -217,6 +222,7 @@
 
                         <Button
                             android:id="@+id/delete"
+                            android:background="#a4bdff"
                             android:layout_width="134dp"
                             android:layout_height="wrap_content"
                             android:text="회원 탈퇴" />
@@ -224,202 +230,9 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="24dp"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
 
-                    <TextView
-                        android:id="@+id/tv_product"
-                        android:layout_width="120dp"
-                        android:layout_height="match_parent"
-
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="상품명"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_amount"
-                        android:layout_width="61dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="수량"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_unitprice"
-                        android:layout_width="93dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="개당 가격"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_totalprice"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="총 금액"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="24dp"
-                        android:orientation="horizontal"
-                        android:weightSum="100">
-
-                    </LinearLayout>
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="24dp"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
-
-                    <TextView
-                        android:id="@+id/tv_product1"
-                        android:layout_width="120dp"
-                        android:layout_height="match_parent"
-
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="상품명"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_amount1"
-                        android:layout_width="61dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="수량"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_unitprice1"
-                        android:layout_width="93dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="개당 가격"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_totalprice1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="총 금액"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="24dp"
-                        android:orientation="horizontal"
-                        android:weightSum="100">
-
-                    </LinearLayout>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="24dp"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
-
-                    <TextView
-                        android:id="@+id/tv_product2"
-                        android:layout_width="120dp"
-                        android:layout_height="match_parent"
-
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="상품명"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_amount2"
-                        android:layout_width="61dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="수량"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_unitprice2"
-                        android:layout_width="93dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="개당 가격"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_totalprice2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/calibri"
-                        android:text="총 금액"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="24dp"
-                        android:orientation="horizontal"
-                        android:weightSum="100">
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
 
 
         </ScrollView>

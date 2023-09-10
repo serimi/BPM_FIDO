@@ -49,6 +49,9 @@
         <activity
             android:name="com.example.rp.RP_BuySuccessActivity"
             android:exported="false"/>
+        <activity
+            android:name="com.example.rp.RP_PayDetailActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

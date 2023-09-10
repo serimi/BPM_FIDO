@@ -62,6 +62,7 @@ public class RP_BuyActivity extends AppCompatActivity {
             public void onClick(View view) throws RuntimeException {
                 Intent intent = getIntent();
                 String userID = intent.getStringExtra("userID");
+                String p_id = "1";
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -82,6 +83,12 @@ public class RP_BuyActivity extends AppCompatActivity {
                                 Log.d(TAG,"Policy: "+policy);
                                 Log.d(TAG, "Transaction: " + transaction);
 
+                                JSONObject sn = new JSONObject();
+                                sn.put("challenge", challenge);
+                                sn.put("transaction", transaction);
+                                String snString = sn.toString();
+                                Log.d(TAG, "snString: " + snString);
+
                                 authenticationCallback = new BiometricPrompt.AuthenticationCallback() {
                                     @Override
                                     public void onAuthenticationFailed() {
@@ -101,17 +108,11 @@ public class RP_BuyActivity extends AppCompatActivity {
                                         notifyUser("인증에 성공하였습니다");
 
                                         ASM_SignatureActivity signatureActivity = new ASM_SignatureActivity();
-                                        byte[] signedChallenge = signatureActivity.signChallenge(challenge, userID);
+                                        byte[] signedChallenge = signatureActivity.signChallenge(snString, userID);
 
                                         if (signedChallenge != null) {
                                             // Method invocation was successful
                                             Log.d(TAG, "Signed Challenge: " + Base64.encodeToString(signedChallenge, Base64.NO_WRAP));
-
-                                            Intent successIntent = new Intent(RP_BuyActivity.this, RP_BuySuccessActivity.class);
-                                            successIntent.putExtra("purchase_item", "tissue"); // 구매한 항목 정보 전달
-                                            successIntent.putExtra("signed_challenge", signedChallenge); // 서명된 도전 정보 전달
-                                            startActivity(successIntent);
-                                            finish();
 
                                         } else {
                                             // Method invocation failed
@@ -119,7 +120,7 @@ public class RP_BuyActivity extends AppCompatActivity {
                                         }
 
                                         try {
-                                            verifySignature(signedChallenge, challenge, userID); // userID에 실제 사용자의 ID를 전달해야 함
+                                            verifySignature(signedChallenge, snString, userID); // userID에 실제 사용자의 ID를 전달해야 함
                                         } catch (KeyStoreException | CertificateException |
                                                  IOException | NoSuchAlgorithmException |
                                                  UnrecoverableEntryException |
@@ -155,7 +156,7 @@ public class RP_BuyActivity extends AppCompatActivity {
                 };
                 RP_BuyRequest buyRequest = null;
                 try {
-                    buyRequest = new RP_BuyRequest(userID, responseListener, RP_BuyActivity.this);
+                    buyRequest = new RP_BuyRequest(userID, "1", responseListener, RP_BuyActivity.this);
                 } catch (CertificateException | NoSuchAlgorithmException | KeyManagementException |
                          IOException | KeyStoreException e) {
                     throw new RuntimeException(e);
@@ -172,6 +173,7 @@ public class RP_BuyActivity extends AppCompatActivity {
         KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(userID, null);
         publicKey = privateKeyEntry.getCertificate().getPublicKey();
         String stringpublicKey = Base64.encodeToString(publicKey.getEncoded(), Base64.NO_WRAP);
+
         Response.Listener<String> responseListener2 = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -182,7 +184,10 @@ public class RP_BuyActivity extends AppCompatActivity {
                     if (success) {
                         // 검증 성공
                         Toast.makeText(getApplicationContext(), "구매정보 저장되었습니다.", Toast.LENGTH_SHORT).show();
-
+                        Intent successIntent = new Intent(RP_BuyActivity.this, RP_BuySuccessActivity.class);
+                        successIntent.putExtra("purchase_item", "tissue"); // 구매한 항목 정보 전달
+                        startActivity(successIntent);
+                        finish();
                     } else {
                         // 검증 실패
                         Toast.makeText(getApplicationContext(), "구매정보 저장 실패. ", Toast.LENGTH_SHORT).show();
@@ -193,6 +198,8 @@ public class RP_BuyActivity extends AppCompatActivity {
                 }
             }
         };
+
+
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -213,21 +220,14 @@ public class RP_BuyActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "서명 검증 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
-                } catch (CertificateException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (KeyStoreException e) {
-                    throw new RuntimeException(e);
-                } catch (NoSuchAlgorithmException e) {
-                    throw new RuntimeException(e);
-                } catch (KeyManagementException e) {
+                } catch (CertificateException | IOException | KeyStoreException |
+                         NoSuchAlgorithmException | KeyManagementException e) {
                     throw new RuntimeException(e);
                 }
             }
         };
 
-        RP_VerifyRequest verifyRequest = new RP_VerifyRequest(userID, chall, Base64.encodeToString(signString, Base64.NO_WRAP), stringpublicKey, responseListener, RP_BuyActivity.this);
+        RP_VerifyRequest verifyRequest = new RP_VerifyRequest(userID, "1", chall, Base64.encodeToString(signString, Base64.NO_WRAP), stringpublicKey, responseListener, RP_BuyActivity.this);
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(verifyRequest);
     }

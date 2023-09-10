@@ -22,7 +22,8 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
-import java.util.Base64; // Added import for Base64
+import java.util.Base64;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -46,8 +47,6 @@ public class CardEnrollActivity extends AppCompatActivity {
 
         btn_home = findViewById(R.id.btn_home);
         btn_info = findViewById(R.id.btn_info);
-
-        // 회원가입 클릭시 수행
         btn_enroll = findViewById(R.id.cardenroll);
         btn_enroll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +67,11 @@ public class CardEnrollActivity extends AppCompatActivity {
                     Toast.makeText(CardEnrollActivity.this, "숫자 이외에는 사용할 수 없습니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (c_num.length() != 16 || c_cvc.length() != 3 || c_date.length() != 4 || c_pw.length() != 2) {
+                    Toast.makeText(CardEnrollActivity.this, "각 항목의 길이가 맞지 않습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 // AES 키 생성
                 String encryptionKey = generateAESKey();
@@ -87,6 +91,7 @@ public class CardEnrollActivity extends AppCompatActivity {
                             if (success) {
                                 Toast.makeText(getApplicationContext(), "카드 등록에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(CardEnrollActivity.this, BiometricActivity.class);
+                                intent.putExtra("userID", userID);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(getApplicationContext(), "카드 등록에 실패하였습니다.", Toast.LENGTH_SHORT).show();
@@ -128,9 +133,13 @@ public class CardEnrollActivity extends AppCompatActivity {
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = getIntent();
+                String userID = intent.getStringExtra("userID");
+
                 // 메인 액티비티로 이동하는 인텐트 생성
-                Intent mainIntent = new Intent(CardEnrollActivity.this, MainActivity.class);
-                startActivity(mainIntent);
+                intent = new Intent(CardEnrollActivity.this, MainActivity.class);
+                intent.putExtra("userID",userID);
+                startActivity(intent);
                 finish(); // 현재 액티비티를 종료하여 이전 액티비티로 돌아갈 수 있도록 함
             }
         });

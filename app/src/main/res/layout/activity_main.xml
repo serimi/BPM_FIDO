@@ -44,7 +44,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="64dp"
                         android:fontFamily="@font/calibri"
-                        android:text="Discover"
+                        android:text="두더지"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp" />
 
@@ -99,7 +99,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
 
                 <TextView
                     android:id="@+id/tv_id"
@@ -460,7 +459,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/calibri"
-                                        android:text="Beach Beautiful"
+                                        android:text="화분"
                                         android:textColor="#FFFFFF"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
@@ -477,7 +476,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="80"
                                             android:fontFamily="@font/calibri"
-                                            android:text="$36"
+                                            android:text="3000"
                                             android:textColor="#FFFFFF"
                                             android:textSize="12sp"
                                             android:textStyle="bold" />
@@ -528,7 +527,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/calibri"
-                                        android:text="Architectural"
+                                        android:text="수납함"
                                         android:textColor="#FFFFFF"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
@@ -545,7 +544,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="80"
                                             android:fontFamily="@font/calibri"
-                                            android:text="$30"
+                                            android:text="4000"
                                             android:textColor="#FFFFFF"
                                             android:textSize="12sp"
                                             android:textStyle="bold" />
